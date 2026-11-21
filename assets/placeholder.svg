@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <rect width="240" height="240" fill="#f4f6f9"/>
+  <g fill="none" stroke="#c3ccd8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="58" y="76" width="124" height="94" rx="10"/>
+    <path d="M58 104h124"/>
+    <path d="M96 76l12-16h24l12 16"/>
+    <path d="M104 138h32"/>
+  </g>
+  <text x="120" y="196" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#94a3b8">Фото товара</text>
+</svg>
