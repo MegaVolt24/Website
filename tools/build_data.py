@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_SOURCE = Path("/home/kitty/Documents/Parse/catalog_products_priced.jsonl")
 OUTPUT = ROOT / "data" / "products.js"
 MAX_IMAGES = 8
+PRICE_FACTOR = 0.7
 
 
 def clean(value):
@@ -62,25 +63,18 @@ def main():
                     specs[name] = value
 
             price = row.get("price")
-            old_price = row.get("old_price")
             try:
                 price = float(price)
             except (TypeError, ValueError):
                 continue
-            try:
-                old_price = float(old_price) if old_price else None
-            except (TypeError, ValueError):
-                old_price = None
-            if old_price is not None and old_price <= price:
-                old_price = None
 
             products.append(
                 {
                     "id": clean(row.get("product_id")) or sku or str(len(products)),
                     "sku": sku,
                     "title": title,
-                    "price": round(price, 2),
-                    "oldPrice": round(old_price, 2) if old_price is not None else None,
+                    "price": round(price * PRICE_FACTOR),
+                    "oldPrice": None,
                     "availability": clean(row.get("availability")) or "Уточняйте",
                     "brand": clean(row.get("brand")) or "Без бренда",
                     "category": category,
