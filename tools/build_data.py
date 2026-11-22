@@ -2,6 +2,7 @@
 """Собирает data/products.js для сайта МегаВольт24 из catalog_products_priced.jsonl."""
 
 import json
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -98,6 +99,17 @@ def main():
         fh.write("window.MEGAVOLT_DATA=")
         json.dump(payload, fh, ensure_ascii=False, separators=(",", ":"))
         fh.write(";\n")
+
+    version = str(int(datetime.now(timezone.utc).timestamp()))
+    index_path = ROOT / "index.html"
+    index_html = index_path.read_text(encoding="utf-8")
+    for asset in ("assets/style.css", "assets/app.js", "data/products.js"):
+        index_html = re.sub(
+            re.escape(asset) + r'(?:\?v=[^"]*)?',
+            f"{asset}?v={version}",
+            index_html,
+        )
+    index_path.write_text(index_html, encoding="utf-8")
 
     size_mb = OUTPUT.stat().st_size / 1024 / 1024
     print(f"Готово: {len(products)} товаров -> {OUTPUT} ({size_mb:.1f} МБ)")
