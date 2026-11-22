@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  var TG_USER = "yunkers0";
+  var TG_USER = "Megavolt24_Manager";
   var PAGE_SIZE = 48;
   var PLACEHOLDER = "assets/placeholder.svg";
 
